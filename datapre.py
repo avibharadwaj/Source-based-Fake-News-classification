@@ -35,7 +35,7 @@ fakeL=set(fakeList)
 d_copy['FakeNews'] = np.where((d_copy.type.isin(fakeL)), 1, 0)
 
 #Saving d_Copy as csv
-d_copy.to_csv(r'C:\Users\Administrator\Downloads\BE Project\Datasets\Getting real with Fake News\data.csv')
+d_copy.to_csv(r'C:\Users\Administrator\Downloads\BE Project\Datasets\Getting real with Fake News\kaggle_gr_clean.csv')
 
 #Dependent variable
 y=d_copy.FakeNews
