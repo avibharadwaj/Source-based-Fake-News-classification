@@ -5,6 +5,14 @@
 
 ### Datasets:
 
+1. Liar Dataset
+2. politifact Dataset
+3. newsFN Dataset
+4. Getting Real with Fake news Dataset
+
+- [@datasets_link](https://github.com/sumeetkr/AwesomeFakeNews)
 
 
-- [@datasets_link] (https://github.com/sumeetkr/AwesomeFakeNews)
+## Note:
+
+Check google Drive for datacleaning process
