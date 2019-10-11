@@ -34,6 +34,17 @@ realList = ["hate","bias","state"]
 fakeL=set(fakeList)
 d_copy['FakeNews'] = np.where((d_copy.type.isin(fakeL)), 1, 0)
 
+#cleaning text and title in d_copy
+#Title
+d_copy['title'] = d_copy['title'].str.lower() #lowercase
+d_copy['title'] = d_copy['title'].str.replace(r'[^\w\s]+', '') #punctuations
+d_copy['title'] = d_copy['title'].str.strip() #leading and ending white spaces
+
+#Text
+d_copy['text'] = d_copy['text'].str.lower() #lowercase
+d_copy['text'] = d_copy['text'].str.replace(r'[^\w\s]+', '') #punctuations
+d_copy['text'] = d_copy['text'].str.strip() #leading and ending white spaces
+
 #Saving d_Copy as csv
 d_copy.to_csv(r'C:\Users\Administrator\Downloads\BE Project\Datasets\Getting real with Fake News\kaggle_gr_clean.csv')
 
