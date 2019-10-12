@@ -39,11 +39,30 @@ d_copy['FakeNews'] = np.where((d_copy.type.isin(fakeL)), 1, 0)
 d_copy['title'] = d_copy['title'].str.lower() #lowercase
 d_copy['title'] = d_copy['title'].str.replace(r'[^\w\s]+', '') #punctuations
 d_copy['title'] = d_copy['title'].str.strip() #leading and ending white spaces
+stop = stopwords.words('english')
+d_copy['title'] = d_copy['title'].str.replace('\d+', '') #remove numbers
+#removing stop words from title body
+patt = r'\b(?:{})\b'.format('|'.join(stop))
+d_copy['title_without_stopwords'] = d_copy['title'].str.replace(patt, '')
+d_copy['title_without_stopwords'] = d_copy['title_without_stopwords'].str.replace(r'\s+', ' ')
+
+
 
 #Text
 d_copy['text'] = d_copy['text'].str.lower() #lowercase
 d_copy['text'] = d_copy['text'].str.replace(r'[^\w\s]+', '') #punctuations
 d_copy['text'] = d_copy['text'].str.strip() #leading and ending white spaces
+d_copy['text'] = d_copy['text'].str.replace('\d+', '') #remove numbers
+#removing stop words from text body
+pat = r'\b(?:{})\b'.format('|'.join(stop))
+d_copy['text_without_stopwords'] = d_copy['text'].str.replace(pat, '')
+d_copy['text_without_stopwords'] = d_copy['text_without_stopwords'].str.replace(r'\s+', ' ')
+d_copy['text'] = d_copy['text'].str.replace('\d+', '') #remove numbers
+#removing stop words from text body
+pat = r'\b(?:{})\b'.format('|'.join(stop))
+d_copy['text_without_stopwords'] = d_copy['text'].str.replace(pat, '')
+d_copy['text_without_stopwords'] = d_copy['text_without_stopwords'].str.replace(r'\s+', ' ')
+
 
 #Saving d_Copy as csv
 d_copy.to_csv(r'C:\Users\Administrator\Downloads\BE Project\Datasets\Getting real with Fake News\kaggle_gr_clean.csv')
