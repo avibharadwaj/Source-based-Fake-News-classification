@@ -16,3 +16,4 @@
 ## Note:
 
 Check google Drive for datacleaning process
+- [@feature_selection](https://docs.google.com/document/d/126HW_b7yylWT2_eS_NYvPheeg9P0sMVUjAMaamhPEZ4/edit?usp=sharing)
