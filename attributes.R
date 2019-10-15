@@ -5,21 +5,21 @@ library(dplyr)
 
 ###### Loading datasets
 
-kaggle_gr <- read.csv('//Users//parshvabarbhaya//Desktop//College//Projects//Fake-News-Detector//kaggle_fake.csv')
-liar_train <- read.table("//Users//parshvabarbhaya//Desktop//College//Projects//Fake-News-Detector//liar_train.tsv", 
+kaggle_gr <- read.csv('//Users//parshvabarbhaya//Desktop//College//Projects//Fake-News-Detector//Datasets//kaggle_fake.csv')
+liar_train <- read.table("//Users//parshvabarbhaya//Desktop//College//Projects//Fake-News-Detector//Datasets//liar_train.tsv", 
                           sep="\t" ,skip =0, header = FALSE, 
                           comment.char = "",check.names = FALSE, quote="",
                           na.strings=c(" ") )
-liar_test <- read.table("//Users//parshvabarbhaya//Desktop//College//Projects//Fake-News-Detector//liar_test.tsv", 
+liar_test <- read.table("//Users//parshvabarbhaya//Desktop//College//Projects//Fake-News-Detector//Datasets//liar_test.tsv", 
                         sep="\t" ,skip =0, header = FALSE, 
                         comment.char = "",check.names = FALSE, quote="",
                         na.strings=c(" ") )
-liar_valid <- read.table("//Users//parshvabarbhaya//Desktop//College//Projects//Fake-News-Detector//liar_valid.tsv", 
+liar_valid <- read.table("//Users//parshvabarbhaya//Desktop//College//Projects//Fake-News-Detector//Datasets//liar_valid.tsv", 
                          sep="\t" ,skip =0, header = FALSE, 
                          comment.char = "",check.names = FALSE, quote="",
                          na.strings=c(" ") )
-politico_r <- read.csv('//Users//parshvabarbhaya//Desktop//College//Projects//Fake-News-Detector//politifact_real.csv')
-newsFN <- read.csv('//Users//parshvabarbhaya//Desktop//College//Projects//Fake-News-Detector//newsFN.csv')
+politico_r <- read.csv('//Users//parshvabarbhaya//Desktop//College//Projects//Fake-News-Detector//Datasets//politifact_real.csv')
+newsFN <- read.csv('//Users//parshvabarbhaya//Desktop//College//Projects//Fake-News-Detector//Datasets//newsFN.csv')
 
 
 ####### Data renames
