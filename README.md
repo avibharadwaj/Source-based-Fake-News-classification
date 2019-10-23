@@ -1,5 +1,5 @@
 <div align="center">
-	<h1>Fake-News-Detector</h1>
+	<h1>Source-based-News-Classification</h1>
 	<p>Work in Progress</p>
 </div>
 
