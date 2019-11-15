@@ -191,7 +191,7 @@ table(liar_train$party)
   # plot -> siteURL
   
   top_sites <- table(kaggle_gr_clean$site_url)
-  top_sites <- kaggle_gr_clean[kaggle_gr_clean$site_url %in% names(top_sites[top_sites < 30]),]
+  top_sites <- kaggle_gr_clean[kaggle_gr_clean$site_url %in% names(top_sites[top_sites == 100]),]
   
   ggplot(top_sites) +
     geom_bar(aes(x= as.factor(site_url), fill = label),position = "dodge")+
