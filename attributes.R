@@ -210,3 +210,8 @@ table(liar_train$party)
   names(kaggle_gr_metadata) <- c("Author")
   head(kaggle_gr_metadata)
   
+  print(kaggle_gr_clean)
+  head(kaggle_gr_clean)
+  write.csv(kaggle_gr_clean, "final_output.csv")
+  
+  
