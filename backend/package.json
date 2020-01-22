@@ -1,0 +1,22 @@
+{
+  "name": "beproject",
+  "version": "1.0.0",
+  "description": "Fake News detector web portal part of final year project worked on by KJSCE students Brinda Ashar, Avinash Bharadwaj, Parshva Barbhaya, Ruchi Bhatia",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Fake",
+    "News",
+    "React",
+    "Node",
+    "Newspaper3k",
+    "Flask",
+    "Python",
+    "Machine",
+    "Learning"
+  ],
+  "author": "1611064-67",
+  "license": "MIT"
+}
