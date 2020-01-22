@@ -1,24 +1,32 @@
-from flask import Flask
+from flask import Flask, jsonify, request
 from newspaper import Article
 from langdetect import detect
 from urllib.parse import urlparse
+from iso639 import languages
 import re
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/api/extract', methods = ['POST'])
 def index():
 	print("Inside extraction")
-	url = 'https://www.washingtonpost.com/business/economy/amazon-is-the-third-superpower-heightening-the-drama-of-the-us-china-trade-war/2019/05/17/3b274486-7720-11e9-b7ae-390de4259661_story.html'
+	print(request)
+	if not request.json or not 'url' in request.json:
+		abort(400)
+	url = request.json['url']
 	article = Article(url)
 	
 	article.download()
 	article.parse()
 	
+	print("Publish date:")
+	print(article.publish_date)
+
 	#authors of article
+	authors = []
 	print("Authors:")
 	for x in article.authors:
-		print( x )
+		authors.append( x )
 	
 	content = []
 	lines = article.text.split('\n')
@@ -33,25 +41,32 @@ def index():
 
 	#title of article
 	print("Article Title")
-	print(article.title)
+	title = article.title
 
 	#hasImage in article
 	print("Has Image")
+	hasImage = 0
 	if article.images:
-		print("Yes")
-	else:
-		print("No")
+		hasImage = 1
 
 	#language of article
 	print("Language of article")
-	print(detect(text))
+	language = detect(text)
 
 	#mainsite URL
 	#find a better way than [4:]
 	print("Main Site URL")
-	print((urlparse(url).netloc)[4:])
+	mainSiteURL = (urlparse(url).netloc)[4:]
 
-	return "Hello, World! works"
+	return jsonify(
+		authors = authors,
+		text = text,
+		title = title,
+		hasImage = hasImage,
+		language = (languages.get(alpha2 = language)).name,
+		site_url = mainSiteURL,
+		published = article.publish_date
+	)
 
 if __name__ == "__main__":
 	app.run(debug=True)
