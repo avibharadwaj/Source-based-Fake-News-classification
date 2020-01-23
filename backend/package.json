@@ -4,6 +4,8 @@
   "description": "Fake News detector web portal part of final year project worked on by KJSCE students Brinda Ashar, Avinash Bharadwaj, Parshva Barbhaya, Ruchi Bhatia",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -18,5 +20,15 @@
     "Learning"
   ],
   "author": "1611064-67",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "morgan": "^1.9.1",
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "yarn": "^1.21.1"
+  }
 }
