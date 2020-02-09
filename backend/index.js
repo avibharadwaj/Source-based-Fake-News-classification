@@ -1,20 +1,10 @@
-require('dotenv').config()
-const express = require('express')
-const app = express()
-const bodyParser = require('body-parser')
-const morgan = require('morgan')
-const cors = require('cors')
+const http = require('http')
 
-app.use(cors())
-app.use(bodyParser.json())
-morgan.token('body', function(res, req) { return JSON.stringify( req.body ) })
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
+const app = require('./app')
+const config = require('./utils/config')
 
-app.get( '/', (request, response) => {
-	response.send('<h2>Hello, World!</h2>')
-})
+const server = http.createServer(app)
 
-const PORT = process.env.PORT
-app.listen( PORT, () => {
-	console.log(`Server running on port ${PORT}`)
+server.listen( config.PORT, () => {
+	console.log(`Server running on port ${config.PORT}`)
 })
