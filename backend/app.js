@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const cors = require('cors')
 
-const newsRouter = require('./controllers/news')
+const newsRouter = require('./controllers/routes')
 const middleware = require('./utils/middleware')
 
 app.use(cors())
