@@ -1,0 +1,15 @@
+{
+	"name": "FakeNewsTool Extension",
+	"version": "1.0",
+	"description": "Extension to classify your news.",
+	"manifest_version": 2,
+	"background":{
+		"scripts": ["background.js"],
+		"persistent": false
+	},
+	"permissions": [
+		"storage"
+	]
+
+
+}
