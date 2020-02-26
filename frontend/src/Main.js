@@ -18,6 +18,8 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 import { useHistory } from 'react-router-dom';
 
+import services from './services/integration';
+
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
@@ -64,10 +66,16 @@ const useStyles = theme => ({
 });
 
 export class Main extends React.Component{
-  constructor(props){
-    super(props);
-    this.handleLogOut = this.handleLogOut.bind(this);
-  }
+	constructor(props){
+		super(props);
+		this.handleLogOut = this.handleLogOut.bind(this);
+	}
+
+	extractBtn = (event) => {
+		event.preventDefault()
+		// console.log(event.target.url.value)
+		services.postUrl(event.target.url.value);
+	}
 
 	handleLogOut(event){
 		event.preventDefault();
@@ -79,8 +87,9 @@ export class Main extends React.Component{
             var errorCode = error.message;
             console.log(errorCode);
             alert(errorCode);
-});
+		});
 	}
+
 	render(){
 		const { classes } = this.props;
 		return(
@@ -102,7 +111,7 @@ export class Main extends React.Component{
         		</AppBar>
       			</div>
       			<div className={classes.paper}>
-      			  <form className={classes.form} noValidate>
+      			  <form className={classes.form} noValidate onSubmit={this.extractBtn}>
       			    <Grid container spacing={2}>
       			      <Grid item xs={12}>
       			        <TextField
@@ -114,12 +123,11 @@ export class Main extends React.Component{
       			        />
       			      </Grid>
       			      <Button
-      			      type="submit"
-      			      variant="contained"
-      			      color="primary"
-      			      align="center"
-      			      className = {classes.submit}
-      			    >
+						type="submit"
+						variant="contained"
+						color="primary"
+						align="center"
+						className = {classes.submit}>
       			      Submit
       			    </Button>
       			    </Grid>
