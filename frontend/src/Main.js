@@ -18,7 +18,8 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 import { useHistory } from 'react-router-dom';
 
-import services from './services/integration';
+import services from './services/integration'
+// import Extracted from './components/extracted'
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -68,13 +69,26 @@ const useStyles = theme => ({
 export class Main extends React.Component{
 	constructor(props){
 		super(props);
+		this.state = {
+			visibility: false,
+			extraction: {}
+		}
 		this.handleLogOut = this.handleLogOut.bind(this);
 	}
 
-	extractBtn = (event) => {
+	extractBtn = async (event) => {
 		event.preventDefault()
-		// console.log(event.target.url.value)
-		services.postUrl(event.target.url.value);
+		const url = event.target.url.value
+		let response = await services.postUrl(url)
+		response.authors = response.authors.join(',')
+		this.setState({ extraction: response })
+
+		// services get Model values
+		const svm = await services.getSVM(url)
+		const naive = await services.getNaive(url)
+		console.log('SVM', svm)
+		console.log('Naive', naive)
+		// console.log(this.state.extraction)
 	}
 
 	handleLogOut(event){
@@ -133,6 +147,9 @@ export class Main extends React.Component{
       			    </Grid>
       			  </form>
       			</div>
+				<div className={classes.paper}>
+					{/* <Extracted data = {this.state.extraction} /> */}
+				</div>
     		</Container>
 
 
@@ -144,3 +161,13 @@ Main.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 export default withStyles(useStyles)(Main)
+
+{/* <Grid container spacing = {2}>
+	<TextField 
+		variant="onlined"
+		fullWidth
+		id={e[0]}
+		label={e[0]}
+		value={e[1]}
+	/>
+</Grid> */}
