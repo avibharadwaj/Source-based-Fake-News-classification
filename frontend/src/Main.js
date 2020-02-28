@@ -108,6 +108,7 @@ export class Main extends React.Component{
 		console.log(this.state.extraction)
     console.log('Naive: ' + naiveResult);
     console.log('SVM: ' + svmResult);
+    this.setState({ visibility: true })
 	}
 
   renderObj = () => {
@@ -116,7 +117,8 @@ export class Main extends React.Component{
     // })
     return(
       <div>
-        {this.state.extraction.text}
+        <div>Article Text:</div>
+        <div>{this.state.extraction.text}</div>
       </div>)
   }
 
@@ -186,11 +188,10 @@ export class Main extends React.Component{
       			  </form>
       			</div>
               <div className={classes.article}>
-                Article Text:
-                {this.renderObj()}
+                {this.state.visibility === true ? this.renderObj() : <div></div>}
               </div>
-              <div className={classes.text}> 
-                {this.renderText()}
+              <div className = {classes.text}>
+                {this.state.visibility === true ? this.renderText() : <div></div>}
               </div>
     		</Container>
 
@@ -203,13 +204,3 @@ Main.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 export default withStyles(useStyles)(Main)
-
-{/* <Grid container spacing = {2}>
-	<TextField 
-		variant="onlined"
-		fullWidth
-		id={e[0]}
-		label={e[0]}
-		value={e[1]}
-	/>
-</Grid> */}
