@@ -43,4 +43,16 @@ router.post('/naive', async (req, res, next) => {
 	}
 })
 
+router.post('/nn', async(req, res, next) => {
+	try {
+		const data = req.body
+		const extract = await helper.extractData(data)
+		const response = await helper.callPyModel('http://localhost:5000/api/nn', JSON.parse(extract))
+		res.json(JSON.parse(response))
+	}
+	catch(error) {
+		next(error)
+	}
+})
+
 module.exports = router

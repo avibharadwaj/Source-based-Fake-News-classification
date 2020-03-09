@@ -9,10 +9,13 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 import pickle
 import re
+import h5py as h5
 
 tf_idf = pickle.load(open("tfidf.pkl", "rb"))
 svm = pickle.load(open("svm.pkl", "rb"))
 naive_bayes = pickle.load(open("naive_bayes.pkl","rb"))
+nn_model = h5.File("nn.h5", "r")
+
 
 app = Flask(__name__)
 
@@ -104,8 +107,22 @@ def predSvm():
 	print(text_features.shape)
 	# print(text_features)
 	svm_result = svm.predict(text_features)
-	# print(naive_result)
+	# print(svm_result)
 	return jsonify(svm_result[0])
+
+@app.route('/api/nn', methods = ['POST'])
+def predNN():
+	print(request)
+	if not request.json or not 'text' in request.json:
+		abort(400)
+	text = re.sub(r'\d+','', request.json['text'])
+	tfidf = tf_idf
+	text_features = tfidf.transform([text])
+	print(text_features.shape)
+	# print(text_features)
+	nn_result = nn_model.predict_classes(text_features)
+	# print(nn_result)
+	return jsonify(nn_result[0])
 
 if __name__ == "__main__":
 	app.run(debug=True)

@@ -88,7 +88,8 @@ export class Main extends React.Component{
 			visibility: false,
 			extraction: {},
       naive:'',
-      svm:''
+      svm:'',
+      nn:''
 		}
 		this.handleLogOut = this.handleLogOut.bind(this);
     this.renderObj = this.renderObj.bind(this);
@@ -103,11 +104,13 @@ export class Main extends React.Component{
 
 		// services get Model values
 		const svmResult = await services.getSVM(url)
-		const naiveResult = await services.getNaive(url)
-		this.setState({naive:naiveResult, svm:svmResult})
+    const naiveResult = await services.getNaive(url)
+    const nnResult = await services.getNN(url)
+		this.setState({naive:naiveResult, svm:svmResult, nn: nnResult})
 		console.log(this.state.extraction)
     console.log('Naive: ' + naiveResult);
     console.log('SVM: ' + svmResult);
+    console.log('NN: ' + nnResult);
     this.setState({ visibility: true })
 	}
 
@@ -126,7 +129,8 @@ export class Main extends React.Component{
     return(
       <div>
         Naive : {this.state.naive} || 
-        SVM : {this.state.svm}
+        SVM : {this.state.svm}||
+        NN : {this.state.nn}
       </div>
       )
   }

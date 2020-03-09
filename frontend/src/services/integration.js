@@ -22,4 +22,10 @@ const getNaive = async object => {
 	return response.data
 }
 
-export default { postUrl, getSVM, getNaive }
+const getNN = async object => {
+    const data = {url: object}
+	const response = await axios.post(baseUrl + '/nn', data)
+	return response.data
+}
+
+export default { postUrl, getSVM, getNaive, getNN }
