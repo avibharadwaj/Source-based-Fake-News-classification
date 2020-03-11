@@ -28,6 +28,7 @@ def index():
 	
 	article.download()
 	article.parse()
+	article.nlp()
 	
 	print("Publish date:")
 	print(article.publish_date)
@@ -68,6 +69,10 @@ def index():
 	print("Main Site URL")
 	mainSiteURL = (urlparse(url).netloc)[4:]
 
+	##extract keywords
+	print("Keyword extraction")
+	print(article.keywords)
+
 	return jsonify(
 		authors = authors,
 		text = text,
@@ -75,7 +80,8 @@ def index():
 		hasImage = hasImage,
 		language = (languages.get(alpha2 = language)).name,
 		site_url = mainSiteURL,
-		published = article.publish_date
+		published = article.publish_date,
+		keywords = article.keywords
 	)
 
 
