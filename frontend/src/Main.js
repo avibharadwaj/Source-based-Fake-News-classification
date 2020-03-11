@@ -17,9 +17,8 @@ import Typography from '@material-ui/core/Typography';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import { useHistory } from 'react-router-dom';
-
-import services from './services/integration'
-// import Extracted from './components/extracted'
+import services from './services/integration';
+import Extracted from './components/extracted';
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -64,6 +63,22 @@ const useStyles = theme => ({
   title: {
     flexGrow: 1,
   },
+  article:{
+    alignItems: 'left',
+    marginTop: theme.spacing(10),
+    width: '50%',
+    fontFamily: 'Arial',
+    fontSize: 14
+},
+  text:{
+    alignItems: 'left',
+    marginTop: theme.spacing(5),
+    width: '50%',
+    fontFamily: 'Arial',
+    fontSize: 15,
+    fontWeight: 'bold'   
+  }
+
 });
 
 export class Main extends React.Component{
@@ -71,9 +86,12 @@ export class Main extends React.Component{
 		super(props);
 		this.state = {
 			visibility: false,
-			extraction: {}
+			extraction: {},
+      naive:'',
+      svm:''
 		}
 		this.handleLogOut = this.handleLogOut.bind(this);
+    this.renderObj = this.renderObj.bind(this);
 	}
 
 	extractBtn = async (event) => {
@@ -84,12 +102,34 @@ export class Main extends React.Component{
 		this.setState({ extraction: response })
 
 		// services get Model values
-		const svm = await services.getSVM(url)
-		const naive = await services.getNaive(url)
-		console.log('SVM', svm)
-		console.log('Naive', naive)
-		// console.log(this.state.extraction)
+		const svmResult = await services.getSVM(url)
+		const naiveResult = await services.getNaive(url)
+		this.setState({naive:naiveResult, svm:svmResult})
+		console.log(this.state.extraction)
+    console.log('Naive: ' + naiveResult);
+    console.log('SVM: ' + svmResult);
+    this.setState({ visibility: true })
 	}
+
+  renderObj = () => {
+    // Object.keys(this.state.extraction).forEach(function(e){
+    //   console.log(e);
+    // })
+    return(
+      <div>
+        <div>Article Text:</div>
+        <div>{this.state.extraction.text}</div>
+      </div>)
+  }
+
+  renderText = () => {
+    return(
+      <div>
+        Naive : {this.state.naive} || 
+        SVM : {this.state.svm}
+      </div>
+      )
+  }
 
 	handleLogOut(event){
 		event.preventDefault();
@@ -137,19 +177,22 @@ export class Main extends React.Component{
       			        />
       			      </Grid>
       			      <Button
-						type="submit"
-						variant="contained"
-						color="primary"
-						align="center"
-						className = {classes.submit}>
+						        type="submit"
+						        variant="contained"
+						        color="primary"
+						        align="center"
+						        className = {classes.submit}>
       			      Submit
       			    </Button>
       			    </Grid>
       			  </form>
       			</div>
-				<div className={classes.paper}>
-					{/* <Extracted data = {this.state.extraction} /> */}
-				</div>
+              <div className={classes.article}>
+                {this.state.visibility === true ? this.renderObj() : <div></div>}
+              </div>
+              <div className = {classes.text}>
+                {this.state.visibility === true ? this.renderText() : <div></div>}
+              </div>
     		</Container>
 
 
@@ -161,13 +204,3 @@ Main.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 export default withStyles(useStyles)(Main)
-
-{/* <Grid container spacing = {2}>
-	<TextField 
-		variant="onlined"
-		fullWidth
-		id={e[0]}
-		label={e[0]}
-		value={e[1]}
-	/>
-</Grid> */}
