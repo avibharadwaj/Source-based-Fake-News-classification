@@ -5,7 +5,7 @@ const _ = require('lodash')
 const extractData = async (data) => {
 	const response = await axios.post(`${config.flaskServer}/api/extract`, data)
 	// console.log(response.data)
-	response.citiations = await citeSources(response.data.title)
+	response.data.citiations = await citeSources(response.data.title)
 	return JSON.stringify(response.data)
 }
 
