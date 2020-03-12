@@ -1,6 +1,7 @@
 const router = require('express').Router()
 
 const helper = require('../utils/helper')
+const config = require('../utils/config')
 
 router.get('/', (req, res, next) => {
 	res.json({
@@ -23,7 +24,7 @@ router.post('/svm', async(req, res, next) => {
 	try {
 		const data = req.body
 		const extract = await helper.extractData(data)
-		const response = await helper.callPyModel('http://localhost:5000/api/svm', JSON.parse(extract))
+		const response = await helper.callPyModel(`${config.flaskServer}/api/svm`, JSON.parse(extract))
 		res.json(JSON.parse(response))
 	}
 	catch(error) {
@@ -35,7 +36,7 @@ router.post('/naive', async (req, res, next) => {
 	try {
 		const data = req.body
 		const extract = await helper.extractData(data)
-		const response = await helper.callPyModel('http://localhost:5000/api/naive', JSON.parse(extract))
+		const response = await helper.callPyModel(`${config.flaskServer}/api/naive`, JSON.parse(extract))
 		res.json(JSON.parse(response))
 	}
 	catch(error) {

@@ -1,6 +1,13 @@
 import axios from 'axios'
 const baseUrl = '/api'
 
+// you will get citations also
+// return data
+/*
+extract,
+citations
+*/
+
 const postUrl = async object => {
 	const data = {
 		url: object
