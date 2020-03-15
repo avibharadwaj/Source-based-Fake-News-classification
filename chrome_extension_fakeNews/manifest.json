@@ -13,5 +13,17 @@
 	 "storage",
 	 "tabs",
 	 "identity"
-	 ]
+	 ],
+	 "content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'; connect-src 'self' wss://*.firebaseio.com;",
+	 "oauth2": {
+		
+		"client_id":  "980569642978-6su9vglfotgdr5lrjc6bn8hmvh06o4p4.apps.googleusercontent.com",
+		"scopes": [
+		  "https://www.googleapis.com/auth/userinfo.email",
+		  "https://www.googleapis.com/auth/userinfo.profile"
+		]
+	  }
+	
+
+	
 }
