@@ -1,15 +1,17 @@
 {
-	"name": "FakeNewsTool Extension",
-	"version": "1.0",
-	"description": "Extension to classify your news.",
 	"manifest_version": 2,
-	"background":{
-		"scripts": ["background.js"],
-		"persistent": false
+  
+	"name": "FakeNewsTool Extension",
+	"description": "Extension to classify your news.",
+	"version": "1.0",
+  
+	"browser_action": {
+	  "default_popup": "popup.html"
 	},
 	"permissions": [
-		"storage"
-	]
-
-
+	 "activeTab",
+	 "storage",
+	 "tabs",
+	 "identity"
+	 ]
 }
