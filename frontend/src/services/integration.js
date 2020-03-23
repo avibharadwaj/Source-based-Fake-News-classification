@@ -13,7 +13,7 @@ const postUrl = async object => {
 		url: object
 	}
 	const response = await axios.post(baseUrl + '/extract', data)
-	// console.log(response.data)
+	//console.log(JSON.stringify(response.data) + "FROM BACKEND")
 	return response.data
 }
 

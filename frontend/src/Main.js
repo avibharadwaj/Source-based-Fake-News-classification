@@ -10,6 +10,13 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
+import Dialog from '@material-ui/core/Dialog';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import CloseIcon from '@material-ui/icons/Close';
+import Slide from '@material-ui/core/Slide';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import { BrowserRouter,Switch,Route,Link } from "react-router-dom";
@@ -66,7 +73,7 @@ const useStyles = theme => ({
   article:{
     alignItems: 'left',
     marginTop: theme.spacing(10),
-    width: '50%',
+    width: '90%',
     fontFamily: 'Arial',
     fontSize: 14
 },
@@ -77,6 +84,20 @@ const useStyles = theme => ({
     fontFamily: 'Arial',
     fontSize: 15,
     fontWeight: 'bold'   
+  },
+
+  buttonSources:{
+    alignItems: 'right',
+    marginTop: theme.spacing(2,100,2),
+  },
+
+  dialogAppBar:{
+    position:'relative',
+  },
+
+  dialogTitle:{
+    marginLeft: theme.spacing(2),
+    flex:1,
   }
 
 });
@@ -88,17 +109,30 @@ export class Main extends React.Component{
 			visibility: false,
 			extraction: {},
       naive:'',
-      svm:''
+      svm:'',
+      open: false,
+      setOpen: false
 		}
 		this.handleLogOut = this.handleLogOut.bind(this);
-    this.renderObj = this.renderObj.bind(this);
-	}
+    this.renderLabel = this.renderLabel.bind(this);
+    this.handleClickOpen = this.handleClickOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+  
+   handleClickOpen = () => {
+    this.setState({setOpen:true});
+    this.setState({open:true});
+  };
+
+   handleClose = () => {
+    this.setState({setOpen:false});
+    this.setState({open:false})
+  };
 
 	extractBtn = async (event) => {
 		event.preventDefault()
 		const url = event.target.url.value
-		let response = await services.postUrl(url)
-		response.authors = response.authors.join(',')
+    let response = await services.postUrl(url) 
 		this.setState({ extraction: response })
 
 		// services get Model values
@@ -111,7 +145,7 @@ export class Main extends React.Component{
     this.setState({ visibility: true })
 	}
 
-  renderObj = () => {
+  renderText = () => {
     // Object.keys(this.state.extraction).forEach(function(e){
     //   console.log(e);
     // })
@@ -122,13 +156,101 @@ export class Main extends React.Component{
       </div>)
   }
 
-  renderText = () => {
+  renderKeywords = () => {
+    return(
+      <div>
+        <div>Keywords:</div>
+        <div>{this.state.extraction.keywords}</div>
+      </div>
+    )
+  }
+
+  renderLabel = () => {
     return(
       <div>
         Naive : {this.state.naive} || 
         SVM : {this.state.svm}
       </div>
       )
+  }
+
+  // openLink = (link) => {
+  //   window.open=link;
+  // }
+  
+  Transition = React.forwardRef(function Transition(props, ref) {
+      return <Slide direction="up" ref={ref} {...props} />;
+    });
+
+  renderButtonSource = () => {
+    const { classes } = this.props;
+    return(
+      <div>
+        <Button
+          type="submit"
+          variant="contained"
+          color="secondary"
+          align="right"
+          onClick={this.handleClickOpen}
+          >
+          View Sources
+        </Button>
+        <Dialog fullScreen open={this.state.open} onClose={this.handleClose} TransitionComponent={this.state.Transition}>
+        <AppBar className={classes.dialogAppBar}>
+          <Toolbar>
+            <IconButton edge="start" color="inherit" onClick={this.handleClose} aria-label="close">
+              <CloseIcon />
+            </IconButton>
+            <Typography variant="h6" className={classes.dialogTitle}>
+              Other Sources
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <List>
+          <ListItem button>
+            <ListItemText  primary={this.state.extraction.citiations[0].title} secondary={this.state.extraction.citiations[0].link} />
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemText primary={this.state.extraction.citiations[1].title} secondary={this.state.extraction.citiations[1].link} />
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemText primary={this.state.extraction.citiations[2].title} secondary={this.state.extraction.citiations[2].link} />
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemText primary={this.state.extraction.citiations[3].title} secondary={this.state.extraction.citiations[3].link} />
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemText primary={this.state.extraction.citiations[4].title} secondary={this.state.extraction.citiations[4].link} />
+          </ListItem> 
+          <Divider />
+          <ListItem button>
+            <ListItemText primary={this.state.extraction.citiations[5].title} secondary={this.state.extraction.citiations[5].link} />
+          </ListItem>  
+          <Divider />
+          <ListItem button>
+            <ListItemText primary={this.state.extraction.citiations[6].title} secondary={this.state.extraction.citiations[6].link} />
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemText primary={this.state.extraction.citiations[7].title} secondary={this.state.extraction.citiations[7].link} />
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemText primary={this.state.extraction.citiations[8].title} secondary={this.state.extraction.citiations[8].link} />
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemText primary={this.state.extraction.citiations[9].title} secondary={this.state.extraction.citiations[9].link} />
+          </ListItem>       
+        </List>
+      </Dialog>     
+      </div>
+
+    )
   }
 
 	handleLogOut(event){
@@ -186,13 +308,22 @@ export class Main extends React.Component{
       			    </Button>
       			    </Grid>
       			  </form>
+              <div className = {classes.buttonSources}>
+                {this.state.visibility === true ? this.renderButtonSource() : <div></div>}
+              </div>
       			</div>
               <div className={classes.article}>
-                {this.state.visibility === true ? this.renderObj() : <div></div>}
-              </div>
-              <div className = {classes.text}>
                 {this.state.visibility === true ? this.renderText() : <div></div>}
               </div>
+
+              <div className = {classes.text}>
+                {this.state.visibility === true ? this.renderLabel() : <div></div>}
+              </div>
+
+              <div className = {classes.text}>
+                {this.state.visibility === true? this.renderKeywords() : <div></div>}
+              </div>
+
     		</Container>
 
 

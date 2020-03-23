@@ -51,30 +51,31 @@ def index():
 	# print(text)
 
 	#title of article
-	print("Article Title")
+	print("Article Title:")
 	title = article.title
 
 	#hasImage in article
-	print("Has Image")
+	print("Has Image:")
 	hasImage = 0
 	if article.images:
 		hasImage = 1
 
 	#language of article
-	print("Language of article")
+	print("Language of article:")
 	language = detect(text)
 
 	#mainsite URL
 	#find a better way than [4:]
-	print("Main Site URL")
+	print("Main Site URL:")
 	mainSiteURL = (urlparse(url).netloc)[4:]
+	print(mainSiteURL)
 
 	##extract keywords
-	print("Keyword extraction")
+	print("Keyword extraction:")
 	print(article.keywords)
 
 	return jsonify(
-		authors = authors,
+		authors = article.authors,
 		text = text,
 		title = title,
 		hasImage = hasImage,
