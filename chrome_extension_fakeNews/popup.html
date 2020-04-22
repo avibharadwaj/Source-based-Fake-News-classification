@@ -11,9 +11,12 @@
     <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-firestore.js"></script>
 
     <script defer src="https://www.gstatic.com/firebasejs/7.6.2/firebase-auth.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
@@ -142,7 +145,7 @@
         }
     </style>
     <script src="jquery.min.js"></script>
-    <script src="popup.js"></script>
+    <script src="pop.js"></script>
 </head>
 
 <body>
@@ -155,6 +158,7 @@
     <div class="modal-content">
         <p id="msg" style="color:blue;"></p>
         <p id="msg2"></p>
+        <p id="msg3"></p>
     </div>
     <div class="modal-icons">
         <div class="flex-container">

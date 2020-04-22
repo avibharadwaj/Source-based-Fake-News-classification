@@ -14,6 +14,7 @@
     "permissions": [
         "identity",
         "tabs",
+        "storage",
      "activeTab",
      "http://*/*",
     "https://*/*",
