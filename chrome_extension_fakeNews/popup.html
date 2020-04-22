@@ -3,8 +3,8 @@
 <html>
 
 <head>
-    <title>Fake News Detector</title>
-
+    <title>Classification of Fake News</title>
+    
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
 
@@ -21,25 +21,24 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+
+
     <style>
         /* Modal Structure */
 
         html,
         body {
-            font-family: 'Helvetica'
-                font-size: 14px;
-            margin: 0;
+            font-family: 'serif';
+            font-size: 14px;
             min-height: 180px;
             padding: 0;
             width: 384px;
         }
 
         h1 {
-            font-family: 'Helvetica'
-                font-size: 22px;
+            font-family: 'serif';
+            font-size: 30px;
             font-weight: 400;
-            margin: 0;
-            color: #2f5876;
         }
 
         a:link,
@@ -55,17 +54,20 @@
 
         .modal-header {
             align-items: center;
-            border-bottom: 0.5px solid #dadada;
+            padding: 0 22px;
+           
         }
 
         .modal-content {
             padding: 0 22px;
+            font-size: 16px;
         }
 
         .modal-icons {
             border-top: 0.5px solid #dadada;
             min-height: 50px;
             max-height: 160px;
+            padding: 0 10px;
             width: 100%;
             overflow: auto;
         }
@@ -86,16 +88,13 @@
         }
 
         .logo {
-            border: 1px solid black;
-            padding: 16px;
-            color: crimson;
-            font-family: 'Helvetica'
+            font-family: 'serif'
         }
 
         .logo-icon {
             vertical-align: text-bottom;
-            margin-right: 12px;
             cursor: pointer;
+            width: 70px;
         }
 
         .version {
@@ -132,7 +131,17 @@
             font-size: 40px;
             color: #2f5876;
         }
-
+        .btn {
+            background-color:50%;
+            border-radius: 2px;
+            color: black;
+            padding: 5px 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+        }
         .true {
             color: green;
         }
@@ -143,6 +152,19 @@
         #detail{
             margin-top: -30px;
         }
+        .container {
+        position: relative;
+        text-align: center;
+        color: white;
+        }
+
+        .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        }        
+        
     </style>
     <script src="jquery.min.js"></script>
     <script src="pop.js"></script>
@@ -151,8 +173,7 @@
 <body>
     <div class="modal-header">
         <h1 class="logo">
-            <img class="logo-icon" src="images/glasses.png" />Fake News Detector
-           
+            <img class="logo-icon" src="images/detector.png" />Fake News Detector
         </h1>
     </div>
     <div class="modal-content">
@@ -164,11 +185,12 @@
         <div class="flex-container">
 
             <div id="checkPage" class="hide">
-                <div class="flex">
+                <!-- <div class="flex">
                           &nbsp;&nbsp;
-                          <img id="detect" title="Detect" class="logo-icon" src="images/detectbutton.jpeg" />
+                          <img id="detect" title="Detect" class="logo-icon" src="images/detectbutton1.png" />
                         
-                </div>
+                </div> -->
+                <button class="btn" id="detect"><i class="fa fa-check-square-o" aria-hidden="true"></i> Detect</button>
             </div>
 
         </div>

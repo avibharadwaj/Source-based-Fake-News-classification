@@ -39,9 +39,9 @@ function authStateObserver(user) {
         fetchedURL = tabs[0].url;
         $("#msg").text(tabs[0].url);
         console.log(fetchedURL);
-        $("#msg3").text(
-          "Please click the green button below to detect fake news!"
-        );
+        // $("#msg3").text(
+        //   "Please click the green button below to detect fake news!"
+        // );
         var fetchValue = db.collection("urls").where("url", "==", fetchedURL);
         fetchValue
           .get()
@@ -71,7 +71,7 @@ function authStateObserver(user) {
     // User is signed out!
     // Hide user's profile and sign-out button.
     //alert("Please login!");
-    $("#msg2").text("Please login to detect fake news!");
+    $("#msg2").text("Login to detect fake news!");
   }
 }
 
