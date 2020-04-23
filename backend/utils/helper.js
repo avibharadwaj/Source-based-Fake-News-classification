@@ -23,7 +23,7 @@ const citeSources = async(title) => {
 	const response = await axios.get(`${queryPoint}&q=${title}`)
 	const important = response.data.items
 	// console.log(important.items.length)
-	const citiations = _.map(important, _.partialRight(_.pick, ['title', 'link']))
+	const citiations = important !== undefined ? _.map(important, _.partialRight(_.pick, ['title', 'link'])) : {data:[]}
 	//console.log(citiations)
 	return citiations
 }
