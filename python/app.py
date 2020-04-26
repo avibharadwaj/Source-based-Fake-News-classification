@@ -5,14 +5,22 @@ from urllib.parse import urlparse
 from iso639 import languages
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-# from model import predictResult
+from model import predictResult
 
 import pickle
 import re
 
+# tf_idf = pickle.load(open("history_tfidf.pkl", "rb"))
+# svm = pickle.load(open("histroy_svm.pkl", "rb"))
+# naive_bayes = pickle.load(open("history_naive_bayes.pkl","rb"))
+
 tf_idf = pickle.load(open("tfidf.pkl", "rb"))
-svm = pickle.load(open("svm.pkl", "rb"))
+svm = pickle.load(open("SVM.pkl", "rb"))
 naive_bayes = pickle.load(open("naive_bayes.pkl","rb"))
+random_forest = pickle.load(open("random_forest.pkl", "rb"))
+adaboost = pickle.load(open("adaboost.pkl", "rb"))
+logistic_regression = pickle.load(open("logistic_regression.pkl", "rb"))
+basic_neural_network = pickle.load(open("basic_neural_network.pkl", "rb"))
 
 app = Flask(__name__)
 
@@ -85,20 +93,13 @@ def index():
 		keywords = article.keywords
 	)
 
-
 @app.route('/api/naive', methods = ['POST'])
 def predNaive():
 	print(request)
 	if not request.json or not 'text' in request.json:
 		abort(400)
 	text = re.sub(r'\d+','', request.json['text'])
-	tfidf = tf_idf
-	text_features = tfidf.transform([text])
-	print(text_features.shape)
-	# print(text_features)
-	naive_result = naive_bayes.predict(text_features)
-	# print(naive_result)
-	return jsonify(naive_result[0])
+	return predictResult(text, tf_idf, naive_bayes)
 
 @app.route('/api/svm', methods = ['POST'])
 def predSvm():
@@ -106,13 +107,39 @@ def predSvm():
 	if not request.json or not 'text' in request.json:
 		abort(400)
 	text = re.sub(r'\d+','', request.json['text'])
-	tfidf = tf_idf
-	text_features = tfidf.transform([text])
-	print(text_features.shape)
-	# print(text_features)
-	svm_result = svm.predict(text_features)
-	# print(naive_result)
-	return jsonify(svm_result[0])
+	return predictResult(text, tf_idf, svm)
+
+@app.route('/api/adaboost', methods = ['POST'])
+def predAda():
+	print(request)
+	if not request.json or not 'text' in request.json:
+		abort(400)
+	text = re.sub(r'\d+','', request.json['text'])
+	return predictResult(text, tf_idf, adaboost)
+
+@app.route('/api/rf', methods = ['POST'])
+def predRF():
+	print(request)
+	if not request.json or not 'text' in request.json:
+		abort(400)
+	text = re.sub(r'\d+','', request.json['text'])
+	return predictResult(text, tf_idf, random_forest)
+
+@app.route('/api/logistic', methods = ['POST'])
+def predLog():
+	print(request)
+	if not request.json or not 'text' in request.json:
+		abort(400)
+	text = re.sub(r'\d+','', request.json['text'])
+	return predictResult(text, tf_idf, logistic_regression)
+
+@app.route('/api/nn', methods = ['POST'])
+def predNN():
+	print(request)
+	if not request.json or not 'text' in request.json:
+		abort(400)
+	text = re.sub(r'\d+','', request.json['text'])
+	return predictResult(text, tf_idf, basic_neural_network)
 
 if __name__ == "__main__":
 	app.run(debug=True)

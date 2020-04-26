@@ -44,4 +44,52 @@ router.post('/naive', async (req, res, next) => {
 	}
 })
 
+router.post('/rf', async (req, res, next) => {
+	try {
+		const data = req.body
+		const extract = await helper.extractData(data)
+		const response = await helper.callPyModel(`${config.flaskServer}/api/rf`, JSON.parse(extract))
+		res.json(JSON.parse(response))
+	}
+	catch(error) {
+		next(error)
+	}
+})
+
+router.post('/nn', async (req, res, next) => {
+	try {
+		const data = req.body
+		const extract = await helper.extractData(data)
+		const response = await helper.callPyModel(`${config.flaskServer}/api/nn`, JSON.parse(extract))
+		res.json(JSON.parse(response))
+	}
+	catch(error) {
+		next(error)
+	}
+})
+
+router.post('/log', async (req, res, next) => {
+	try {
+		const data = req.body
+		const extract = await helper.extractData(data)
+		const response = await helper.callPyModel(`${config.flaskServer}/api/logistic`, JSON.parse(extract))
+		res.json(JSON.parse(response))
+	}
+	catch(error) {
+		next(error)
+	}
+})
+
+router.post('/ada', async (req, res, next) => {
+	try {
+		const data = req.body
+		const extract = await helper.extractData(data)
+		const response = await helper.callPyModel(`${config.flaskServer}/api/adaboost`, JSON.parse(extract))
+		res.json(JSON.parse(response))
+	}
+	catch(error) {
+		next(error)
+	}
+})
+
 module.exports = router
