@@ -1,10 +1,10 @@
 Machine Learning:
-    ☐ K-Fold
-    ☐ Manually delete rows at select
-    ☐ Pickle
+    ✔ K-Fold @done (4/26/2020, 11:36:51 PM)
+    ✔ Manually delete rows at select @done (4/26/2020, 11:36:54 PM)
+    ✔ Pickle @done (4/26/2020, 11:36:58 PM)
 
 Python:
     ☐ Error handling
 
 Javascript:
-    ☐ Handle Citiations
+    ✔ Handle Citiations @done (4/26/2020, 11:37:02 PM)

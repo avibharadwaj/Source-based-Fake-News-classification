@@ -6,7 +6,7 @@ const extractData = async (data) => {
 	const response = await axios.post(`${config.flaskServer}/api/extract`, data)
 	// console.log(response.data)
 	response.data.citiations = await citeSources(response.data.title)
-	console.log(response.data)
+	// console.log(response.data)
 	return JSON.stringify(response.data)
 
 }
