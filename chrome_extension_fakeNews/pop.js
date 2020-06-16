@@ -47,18 +47,22 @@ function authStateObserver(user) {
           .get()
           .then(function (querySnapshot) {
             querySnapshot.forEach(function (doc) {
-              // doc.data() is never undefined for query doc snapshots
-              console.log(doc.id, " => ", doc.data());
+              article = doc.data();
+              // console.log(doc.id, " => ", doc.data());
               if (doc.exists) {
                 //$("#msg2").text("URL exists");
                 exists=1;
               }
             });
             if(exists==1){
-                $("#msg2").text("URL exists");
+                $("#msg2").text(article.type);
+                 // console.log(article.type);
+                // for (var prop in article) {
+                //   console.log(Object.values(article));
+                //  }
               }
               else{
-                $("#msg2").text("URL does not exist");
+                $("#msg2").text("URL has not been classified.");
               }
           })
           .catch(function (error) {
