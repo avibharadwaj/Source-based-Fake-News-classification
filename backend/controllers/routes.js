@@ -92,4 +92,16 @@ router.post('/ada', async (req, res, next) => {
 	}
 })
 
+router.post('/all', async (req, res, next) => {
+	try {
+		const data = req.body
+		const extract = await helper.extractData(data)
+		const response = await helper.callPyModel(`${config.flaskServer}/api/all`, JSON.parse(extract))
+		res.json(JSON.parse(response))
+	}
+	catch(error) {
+		next(error)
+	}
+})
+
 module.exports = router

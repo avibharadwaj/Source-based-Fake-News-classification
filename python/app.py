@@ -80,12 +80,9 @@ def predNN():
 
 @app.route('/api/all', methods = ['POST'])
 def all():
-	print(request)
-	body = scrape(request)
-	
-	if not body.json or not 'text' in body.json:
+	if not request.json or not 'text' in request.json:
 		abort(400)
-	text = re.sub(r'\d+','', body.json['text'])
+	text = re.sub(r'\d+','', request.json['text'])
 	ml = {}
 	ml['nn'] = predictResult(text, tf_idf, basic_neural_network).json['result']
 	ml['logistic'] = predictResult(text, tf_idf, logistic_regression).json['result']
