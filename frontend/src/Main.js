@@ -160,7 +160,7 @@ export class Main extends React.Component{
     return(
       <div>
         <div>Keywords:</div>
-        <div>{this.state.extraction.keywords}</div>
+        <div>{this.state.extraction.keywords.join(' ')}</div>
       </div>
     )
   }
