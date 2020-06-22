@@ -84,12 +84,12 @@ def all():
 		abort(400)
 	text = re.sub(r'\d+','', request.json['text'])
 	ml = {}
-	ml['nn'] = predictResult(text, tf_idf, basic_neural_network).json['result']
+	ml['neural_network'] = predictResult(text, tf_idf, basic_neural_network).json['result']
 	ml['logistic'] = predictResult(text, tf_idf, logistic_regression).json['result']
-	ml['rf'] = predictResult(text, tf_idf, random_forest).json['result']
-	ml['ada'] = predictResult(text, tf_idf, adaboost).json['result']
+	ml['random_forest'] = predictResult(text, tf_idf, random_forest).json['result']
+	ml['adaboost'] = predictResult(text, tf_idf, adaboost).json['result']
 	ml['svm'] = predictResult(text, tf_idf, svm).json['result']
-	ml['naive'] = predictResult(text, tf_idf, naive_bayes).json['result']
+	ml['naive_bayes'] = predictResult(text, tf_idf, naive_bayes).json['result']
 	print(ml)
 	return jsonify(ml)
 

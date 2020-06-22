@@ -1,32 +1,24 @@
 import React from 'react';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import firebaseConfig from './firebaseConfig';
+
+import PropTypes from 'prop-types';
+
+import {
+  Link
+} from "react-router-dom";
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import AppBar from '@material-ui/core/AppBar';
-import { useHistory } from 'react-router-dom';
-//auth.signInWithEmailAndPassword
-//auth.createUserWithEmailAndPassword(email,pass)
-//auth.onAuthStateChanged(firebaseUser => {})
-
-
-
 
 function Copyright() {
   return (
@@ -96,15 +88,11 @@ export class SignIn extends React.Component{
 
   handleSubmit(event){
     //alert('Data submitted ' + this.state.name);
-    var flag=0;
     event.preventDefault();
     var canProceed = this.validateEmail(this.state.email)
-    if(canProceed) {
-      var data = {
-        email: this.state.email,
-      }
-    } else {
+    if(!canProceed) {
       alert('Email not valid.');
+      return
     }
 
     if(canProceed){

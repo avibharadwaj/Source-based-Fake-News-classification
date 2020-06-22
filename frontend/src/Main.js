@@ -1,7 +1,11 @@
 import React from 'react';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import firebaseConfig from './firebaseConfig';
+
+import PropTypes from 'prop-types';
+
+import services from './services/integration';
+
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -14,18 +18,10 @@ import Dialog from '@material-ui/core/Dialog';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import { withStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
-import { BrowserRouter,Switch,Route,Link } from "react-router-dom";
-import Typography from '@material-ui/core/Typography';
-import SignIn from './SignIn';
-import SignUp from './SignUp';
-import { useHistory } from 'react-router-dom';
-import services from './services/integration';
-import Extracted from './components/extracted';
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -108,8 +104,7 @@ export class Main extends React.Component{
 		this.state = {
 			visibility: false,
 			extraction: {},
-      naive:'',
-      svm:'',
+      results: {},
       open: false,
       setOpen: false
 		}
@@ -136,12 +131,9 @@ export class Main extends React.Component{
 		this.setState({ extraction: response })
 
 		// services get Model values
-		const svmResult = await services.getSVM(url)
-		const naiveResult = await services.getNaive(url)
-		this.setState({naive:naiveResult, svm:svmResult})
-		console.log(this.state.extraction)
-    console.log('Naive: ' + naiveResult);
-    console.log('SVM: ' + svmResult);
+    const allResults = await services.getAll(url)
+		this.setState({results: allResults})
+		// console.log(this.state.extraction)
     this.setState({ visibility: true })
 	}
 
@@ -166,11 +158,35 @@ export class Main extends React.Component{
   }
 
   renderLabel = () => {
+    console.log(this.state.results)
+    const mlValues = this.state.results
+    const arr = []
+    for(let key in mlValues) {
+      const b = []
+      b.push(key)
+      b.push(mlValues[key])
+      arr.push(b)
+    }
+
+    console.log(arr)
     return(
-      <div>
-        Naive : {this.state.naive} || 
-        SVM : {this.state.svm}
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Model Name</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          {arr.map(a => {
+            return (
+              <tr>
+                <td>{a[0]}</td><td>{a[1]}</td>
+              </tr>
+              )
+          })}
+        </tbody>
+      </table>
       )
   }
 
