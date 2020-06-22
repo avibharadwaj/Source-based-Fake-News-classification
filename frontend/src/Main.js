@@ -182,6 +182,24 @@ export class Main extends React.Component{
       return <Slide direction="up" ref={ref} {...props} />;
     });
 
+  handleCitiations = () => {
+    const arr = []
+    for(let article of this.state.extraction.citiations) {
+      arr.push(<ListItem button>
+        <ListItemText  primary={article.title} secondary={article.link} />
+      </ListItem>)
+    }
+    return arr
+  }
+
+  handleNoCitiations = () => {
+    return (
+      <ListItem button>
+        <ListItemText  primary={'Sorry no matching articles found'} secondary={'Try again later'} />
+      </ListItem>
+    )
+  }
+
   renderButtonSource = () => {
     const { classes } = this.props;
     return(
@@ -207,45 +225,7 @@ export class Main extends React.Component{
           </Toolbar>
         </AppBar>
         <List>
-          <ListItem button>
-            <ListItemText  primary={this.state.extraction.citiations[0].title} secondary={this.state.extraction.citiations[0].link} />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemText primary={this.state.extraction.citiations[1].title} secondary={this.state.extraction.citiations[1].link} />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemText primary={this.state.extraction.citiations[2].title} secondary={this.state.extraction.citiations[2].link} />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemText primary={this.state.extraction.citiations[3].title} secondary={this.state.extraction.citiations[3].link} />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemText primary={this.state.extraction.citiations[4].title} secondary={this.state.extraction.citiations[4].link} />
-          </ListItem> 
-          <Divider />
-          <ListItem button>
-            <ListItemText primary={this.state.extraction.citiations[5].title} secondary={this.state.extraction.citiations[5].link} />
-          </ListItem>  
-          <Divider />
-          <ListItem button>
-            <ListItemText primary={this.state.extraction.citiations[6].title} secondary={this.state.extraction.citiations[6].link} />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemText primary={this.state.extraction.citiations[7].title} secondary={this.state.extraction.citiations[7].link} />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemText primary={this.state.extraction.citiations[8].title} secondary={this.state.extraction.citiations[8].link} />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemText primary={this.state.extraction.citiations[9].title} secondary={this.state.extraction.citiations[9].link} />
-          </ListItem>       
+          {this.state.extraction.citiations.length === 0 ? this.handleNoCitiations() : this.handleCitiations()}
         </List>
       </Dialog>     
       </div>
