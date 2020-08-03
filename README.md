@@ -1,7 +1,8 @@
 <div align="center">
 	<h1>Source-based-News-Classification</h1>
-	<p>Work in Progress</p>
 </div>
+
+The spread of misinformation on social media platforms is an ever-growing problem. Organizations, politicians, individuals looking for personal gain and even certain news media outlets engage in propagating fake news to sway people's decisions as well as distorting events to fit a bias or prejudice. The degree of authenticity of the news posted online cannot be definitively measured, since the manual classification of news is tedious and time-consuming and is also subject to bias. To tackle the growing problem, detection, classification and mitigation tools are a need of the hour.
 
 ### Datasets:
 
@@ -11,7 +12,6 @@
 4. Getting Real with Fake news Dataset
 
 - [@datasets_link](https://github.com/sumeetkr/AwesomeFakeNews)
-
 
 ## Note:
 
@@ -32,3 +32,5 @@ Check google Drive for datacleaning process
 *Note*: To run both python and backend servers need to be running
 1. Python: (in python sub dir) -> python3 app.py
 2. Backend: (in backend folder) -> npm run watch / npm start
+
+- [@Published_paper](http://www.ijirset.com/upload/2020/june/115_4_Source.PDF)
